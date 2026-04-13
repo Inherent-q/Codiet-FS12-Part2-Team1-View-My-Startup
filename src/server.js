@@ -26,10 +26,10 @@ app.use("/api", detailRouter);
 // 새로운 라우트 추가 (종찬)
 app.use("/api", selectionRoutes);
 
+app.use("/api", investmentRoutes);
+
 // 에러 핸들러 추가 (종찬)
 app.use(errorHandler);
-
-app.use("/api/investment", investmentRoutes);
 
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
