@@ -2,6 +2,7 @@ import express from "express";
 import dotenv from "dotenv";
 import prisma from "./client.js";
 import cors from "cors";
+import detailRouter from "./components/detail.js";
 
 dotenv.config();
 BigInt.prototype.toJSON = function () {
@@ -15,9 +16,10 @@ const investors = await prisma.investor.findMany();
 
 app.use(express.json());
 app.use(cors());
+app.use("/", detailRouter);
 
 app.get("/", (req, res) => {
-  res.json(corps);
+  res.json(corps, investors);
 });
 
 app.listen(PORT, () => {
