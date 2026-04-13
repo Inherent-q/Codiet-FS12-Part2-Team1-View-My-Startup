@@ -17,9 +17,6 @@ app.use(express.json());
 app.use(cors());
 
 app.use("/api/corporations", corpsRouter);
-app.get("/", (req, res) => {
-  res.json(corps);
-});
 
 // 새로운 라우트 추가 (종찬)
 app.use("/api", selectionRoutes);
