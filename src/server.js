@@ -5,6 +5,7 @@ import detailRouter from "./components/detail.js"; // 추가 (영미)
 import corpsRouter from "./components/corporations.js";
 import selectionRoutes from "./components/selection.js"; // 추가 (종찬)
 import { errorHandler } from "./middleware/errorHandler.js"; // 추가 (종찬)
+import investmentRoutes from "./components/investController.js"; // (주연)
 
 dotenv.config();
 BigInt.prototype.toJSON = function () {
@@ -27,6 +28,8 @@ app.use("/api", selectionRoutes);
 
 // 에러 핸들러 추가 (종찬)
 app.use(errorHandler);
+
+app.use("/api/investment", investmentRoutes);
 
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
