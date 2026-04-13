@@ -39,14 +39,17 @@ model Comparisonselection {
   id            Int      @id @default(autoincrement())
   userSessionId String
   corpId        Int
-  createdAt     DateTime @default(now())
-  updatedAt     DateTime @updatedAt
-  corp          Corp     @relation(fields: [corpId], references: [id])
+  corp          Corp   @relation(fields: [corpId], references: [id])
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([userSessionId, corpId])  // (종찬 추가) 같은 사용자가 같은 기업 중복 추가 방지
+  @@index([userSessionId])           // (종찬 추가) 조회 성능 최적화
 }
 
 model Myselection {
-  id            Int      @id @default(autoincrement())
-  userSessionId String
+ id Int @id @default(autoincrement())
+  userSessionId String  @unique  // (종찬 추가) 사용자당 1개의 나의 기업만 선택 @unique
   corpId        Int
   createdAt     DateTime @default(now())
   updatedAt     DateTime @updatedAt
