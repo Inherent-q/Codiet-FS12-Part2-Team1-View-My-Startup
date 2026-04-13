@@ -1,5 +1,5 @@
 import express from "express";
-import prisma from "../client";
+import prisma from "../client.js";
 
 const router = express.Router();
 
@@ -23,7 +23,7 @@ export const getVMS = async (req, res) => {
   }
 };
 
-router.get("/api/corporations", getInvestList);
-router.get("/api/corporations/:id/investors", getVMS);
+router.get("/corporations/:id", getInvestList);
+router.get("/corporations/:id/investors", getVMS);
 
 export default router;
