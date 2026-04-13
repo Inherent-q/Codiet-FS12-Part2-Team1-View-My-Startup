@@ -1,13 +1,10 @@
 import express from "express";
 import dotenv from "dotenv";
 import cors from "cors";
-<<<<<<< HEAD
-import detailRouter from "./components/detail.js";
-=======
+import detailRouter from "./components/detail.js"; // 추가 (영미)
 import corpsRouter from "./components/corporations.js";
 import selectionRoutes from "./components/selection.js"; // 추가 (종찬)
 import { errorHandler } from "./middleware/errorHandler.js"; // 추가 (종찬)
->>>>>>> 52238a34a5d1a20bf94d89b2cbabd9cbdf533155
 
 dotenv.config();
 BigInt.prototype.toJSON = function () {
