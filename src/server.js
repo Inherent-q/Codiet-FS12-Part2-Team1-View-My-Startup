@@ -16,9 +16,11 @@ const PORT = process.env.PORT || 3000;
 
 app.use(express.json());
 app.use(cors());
-app.use("/", detailRouter);
 
 app.use("/api/corporations", corpsRouter);
+
+// 새로운 라우트 추가 (영미)
+app.use("/api", detailRouter);
 
 // 새로운 라우트 추가 (종찬)
 app.use("/api", selectionRoutes);

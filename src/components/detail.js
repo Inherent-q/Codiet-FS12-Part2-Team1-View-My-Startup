@@ -1,14 +1,9 @@
 import express from "express";
 import prisma from "../client.js";
-import cors from "cors";
-
-BigInt.prototype.toJSON = function () {
-  return this.toString();
-};
 
 const router = express.Router();
 
-router.get("/api/corporations/:id", async (req, res) => {
+router.get("/corporations/:id", async (req, res) => {
   const { id } = req.params;
   try {
     const corporation = await prisma.corp.findUnique({
@@ -22,7 +17,7 @@ router.get("/api/corporations/:id", async (req, res) => {
   }
 });
 
-router.get("/api/corporations/:id/investors", async (req, res) => {
+router.get("/corporations/:id/investors", async (req, res) => {
   const { id } = req.params;
   try {
     const investors = await prisma.investor.findMany({
@@ -35,7 +30,7 @@ router.get("/api/corporations/:id/investors", async (req, res) => {
   }
 });
 
-router.post("/api/corporations/:id/investors", async (req, res) => {
+router.post("/corporations/:id/investors", async (req, res) => {
   const { id } = req.params;
   const { name, amount, password, comment } = req.body;
   try {
@@ -55,7 +50,7 @@ router.post("/api/corporations/:id/investors", async (req, res) => {
 });
 
 //삭제할 데이터 확인용
-router.get("/api/investors/:investorId", async (req, res) => {
+router.get("/investors/:investorId", async (req, res) => {
   const { investorId } = req.params;
   try {
     const investors = await prisma.investor.findMany({
@@ -67,7 +62,7 @@ router.get("/api/investors/:investorId", async (req, res) => {
   }
 });
 
-router.delete("/api/investors/:investorId", async (req, res) => {
+router.delete("/investors/:investorId", async (req, res) => {
   const { investorId } = req.params;
   try {
     await prisma.investor.delete({
