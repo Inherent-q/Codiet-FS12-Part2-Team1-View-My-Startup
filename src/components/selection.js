@@ -1,6 +1,13 @@
+import express from "express";
 import prisma from "../client.js";
+import {
+  validateMySelectionRequest,
+  validateComparisonSelectionsRequest,
+} from "../utils/validation.js";
 
-// GET /api/my-selection
+const router = express.Router();
+
+//컨트롤러 함수들
 export const getMySelection = async (req, res) => {
   try {
     const { userSessionId } = req.query; // snake_case → camelCase
@@ -33,7 +40,15 @@ export const getMySelection = async (req, res) => {
 // POST /api/my-selection
 export const postMySelection = async (req, res) => {
   try {
-    const { userSessionId, corpId } = req.body; // camelCase
+    const validation = validateMySelectionRequest(req.body);
+    if (!validation.valid) {
+      return res.status(400).json({
+        success: false,
+        error: validation.error,
+      });
+    }
+
+    const { userSessionId, corpId } = req.body;
 
     if (!userSessionId || !corpId) {
       return res.status(400).json({
@@ -102,6 +117,14 @@ export const getComparisonSelections = async (req, res) => {
 // POST /api/comparison-selections
 export const postComparisonSelections = async (req, res) => {
   try {
+    const validation = validateComparisonSelectionsRequest(req.body);
+    if (!validation.valid) {
+      return res.status(400).json({
+        success: false,
+        error: validation.error,
+      });
+    }
+
     const { userSessionId, corpIds } = req.body; // corpIds (camelCase)
 
     if (!userSessionId || !Array.isArray(corpIds)) {
@@ -148,3 +171,11 @@ export const postComparisonSelections = async (req, res) => {
     });
   }
 };
+
+//라우트 정의
+router.get("/my-selection", getMySelection);
+router.post("/my-selection", postMySelection);
+router.get("/comparison-selections", getComparisonSelections);
+router.post("/comparison-selections", postComparisonSelections);
+
+export default router;
