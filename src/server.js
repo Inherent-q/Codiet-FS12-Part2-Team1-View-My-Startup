@@ -1,7 +1,7 @@
 import express from "express";
 import dotenv from "dotenv";
-import prisma from "./client.js";
 import cors from "cors";
+import corpsRouter from "./components/corporations.js";
 import selectionRoutes from "./components/selection.js"; // 추가 (종찬)
 import { errorHandler } from "./middleware/errorHandler.js"; // 추가 (종찬)
 
@@ -12,12 +12,11 @@ BigInt.prototype.toJSON = function () {
 
 const app = express();
 const PORT = process.env.PORT || 3000;
-const corps = await prisma.corp.findMany();
-const investors = await prisma.investor.findMany();
 
 app.use(express.json());
 app.use(cors());
 
+app.use("/api/corporations", corpsRouter);
 app.get("/", (req, res) => {
   res.json(corps);
 });
