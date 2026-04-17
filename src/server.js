@@ -20,13 +20,14 @@ app.use(cors());
 
 app.use("/api/corporations", corpsRouter);
 
+//새로운 라우터 추가 (주연)
+app.use("/api", investmentRoutes);
+
 // 새로운 라우트 추가 (영미)
 app.use("/api", detailRouter);
 
 // 새로운 라우트 추가 (종찬)
 app.use("/api", selectionRoutes);
-
-app.use("/api", investmentRoutes);
 
 // 에러 핸들러 추가 (종찬)
 app.use(errorHandler);
